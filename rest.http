@@ -1,0 +1,3 @@
+###GET All Rockets
+
+GET http://localhost:3000/rockets
