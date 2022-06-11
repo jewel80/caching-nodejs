@@ -25,6 +25,7 @@ app.get("/rockets", async (req, res, next) => {
             res.send(JSON.parse(reply));
             return;
         }
+        
         const respone = await axios.get("https://api.spacexdata.com/v3/rockets");
         const saveResult = await SET_ASYNC(
             "rockets",
@@ -44,12 +45,14 @@ app.get("/rockets/:rocket_id", async (req, res, next) => {
         const {
             rocket_id
         } = req.params;
+        
         const reply = await GET_ASYNC(rocket_id);
         if (reply) {
             console.log("using cached data");
             res.send(JSON.parse(reply));
             return;
         }
+
         const respone = await axios.get(
             `https://api.spacexdata.com/v3/rockets/${rocket_id}`
         );
@@ -59,6 +62,7 @@ app.get("/rockets/:rocket_id", async (req, res, next) => {
             "EX",
             5
         );
+        
         console.log("new data cached", saveResult);
         res.send(respone.data);
     } catch (error) {
